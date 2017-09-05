@@ -1,25 +1,48 @@
 #include <avr/io.h>
+#include "UART.h"
+#define FOSC 4915200// Clock Speed
+#define BAUD 9600
+#define MYUBRR FOSC/16/BAUD-1
 
 
-void UartTransive(unsigned char data){
+unsigned char USART_Receive(void)
+	{
+	//Wait for data to be received
+	while ( !(UCSR0A & (1<<RXC0)) );
 	
-	while ( !( UCSR0A & (1<<UDRE0)) )
-	;
-	/* Put data into buffer, sends the data */
+	//Get and return received data from buffer
+	return UDR0;
+	}
+
+void USART_Transmit( unsigned char data )
+	{
+	//Wait for empty transmit buffer
+	while ( !( UCSR0A & (1<<UDRE0)) );
+	
+	//Put data into buffer, sends the data
 	UDR0 = data;
+	}
+
+//Runars del
+//void UartTransive(unsigned char data){
+	//
+	//while ( !( UCSR0A & (1<<UDRE0)) )
+	//;
+	///* Put data into buffer, sends the data */
+	//UDR0 = data;
+	//
+	//
+	///* Wait for data to be received */
+	//while ( !(UCSR0A & (1<<RXC)) )
+	//;
+	///* Get and return received data from buffer */
+	//return UDR;
 	
-	
-	/* Wait for data to be received */
-	while ( !(UCSRA & (1<<RXC)) )
-	;
-	/* Get and return received data from buffer */
-	return UDR;
-	
-}
+//}
 void UartInit(){
 	//Set Baud rate 9600
-	UBRR0H = (unsigned char)(31>>8);	// Setter de 8 mest signifikante bitene
-	UBRR0L = (unsigned char)(31);	// Setter de 8 minst signifikante bitene
+	UBRR0H = (unsigned char)(MYUBRR>>8);	// Setter de 8 mest signifikante bitene
+	UBRR0L = (unsigned char)(MYUBRR);	// Setter de 8 minst signifikante bitene
 	// Enable receiver and transmitter
 	UCSR0B = (1<<RXEN0) | (1<<TXEN0);
 	// 8N2
