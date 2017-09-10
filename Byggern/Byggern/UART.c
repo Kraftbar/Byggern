@@ -47,5 +47,5 @@ void UartInit(){
 	UCSR0B = (1<<RXEN0) | (1<<TXEN0);
 	// 8N2
 	UCSR0C = (1<<URSEL0) | (1<<USBS0) | (3<<UCSZ00);
-	
+	fdevopen(&USART_Transmit, &USART_Receive);
 }

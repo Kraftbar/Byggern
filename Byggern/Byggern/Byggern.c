@@ -25,6 +25,7 @@ int main(void)
 	int i = 1;
 	int j = 1;
 	UartInit();
+	printf("hola\n");
     while(1)
     {
 		// Buttons input (the whole port)
@@ -49,7 +50,7 @@ int main(void)
 			//}
 			//
 			_delay_ms(100);
-			testest2(TestChar);
+			
 			
 		//}
 		
