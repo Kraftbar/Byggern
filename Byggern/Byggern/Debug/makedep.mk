@@ -4,5 +4,7 @@
 
 Byggern.c
 
+SRAM_test.c
+
 UART.c
 
