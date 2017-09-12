@@ -9,10 +9,10 @@
 #include <avr/sleep.h>
 //#include <avr/stdint.h>
 #include <stdio.h>
+#include <string.h>
 #include <util/delay.h>
 #include "UART.h"
-//#include "UART.c"
-#include "SRAM_test.c"
+#include "SRAM_test.h"
 
 void testest2(unsigned char x)
 {
@@ -23,50 +23,57 @@ unsigned char TestChar = 'k';
 
 int main(void)
 {
+	UartInit();
+	
+	SRAM_init();
 	// Output (the whole port)
-	DDRA = 0xFF;
+	//DDRA = 0xFF;
 	// output (the whole port)
-	DDRE = 0xFF;
+	//DDRE = 0xFF;
 	//TODO:: Please write your application code
 	//fdevopen(char a);
 	
-	PORTE = 0xFF;
+	//PORTE = 0xFF;
 	
 	char name[100];
 
 	
 	unsigned int i = 1;
 	int j = 1;
-	UartInit();
+	
     while(1)
     {
-	    //scanf("%s", name);
-		//printf("%s \n \n",name);
+	    scanf("%s", name);
+		printf("%s \n \n",name);
 	
         //TODO:: Please write your application code 
 		//fdevopen(char a);
 		
 		SRAM_test();
-		i++;
+		//SRAM_write(0x101, 0xF03);
+		//_delay_ms(100);
+		//printf(SRAM_read(0x101));
 		
-		if (i >= 10)
-		{
-			i = 0;
-			if (j == 0)
-			{
-				PORTA = 0xFF;
-				j = 1;
-			}
-			else
-			{
-				PORTA = 0x00;
-				j = 0;
-			}
-			
-			_delay_ms(1000);
-			
-			
-		}
+		//i++;
+		//
+		//if (i >= 10)
+		//{
+			//i = 0;
+			//if (j == 0)
+			//{
+				//PORTA = 0xFF;
+				//j = 1;
+			//}
+			//else
+			//{
+				//PORTA = 0x00;
+				//j = 0;
+			//}
+			//
+			//_delay_ms(100);
+			//
+			//
+		//}
 		
     }
 	
