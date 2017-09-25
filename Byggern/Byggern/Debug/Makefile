@@ -39,6 +39,8 @@ SUBDIRS :=
 C_SRCS +=  \
 ../ADC_test.c \
 ../Byggern.c \
+../Joysick.c \
+../OLED.c \
 ../SRAM_test.c \
 ../UART.c
 
@@ -52,24 +54,32 @@ ASM_SRCS +=
 OBJS +=  \
 ADC_test.o \
 Byggern.o \
+Joysick.o \
+OLED.o \
 SRAM_test.o \
 UART.o
 
 OBJS_AS_ARGS +=  \
 ADC_test.o \
 Byggern.o \
+Joysick.o \
+OLED.o \
 SRAM_test.o \
 UART.o
 
 C_DEPS +=  \
 ADC_test.d \
 Byggern.d \
+Joysick.d \
+OLED.d \
 SRAM_test.d \
 UART.d
 
 C_DEPS_AS_ARGS +=  \
 ADC_test.d \
 Byggern.d \
+Joysick.d \
+OLED.d \
 SRAM_test.d \
 UART.d
 
@@ -87,6 +97,10 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 

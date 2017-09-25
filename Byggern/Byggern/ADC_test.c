@@ -4,26 +4,33 @@
 
 
 
-unsigned char ADC_read(void)
+int ADC_read(char channel)
 {
-	//volatile char *ext_ram = (char *) 0x1800
-	volatile char *ext_adc = (char *) 0x1400; // Start address for the SRAM
-	unsigned char ext_adc_size		= 0b0111;
-	unsigned int retrieved_value = 0;
-	for (unsigned char i = 0b0100; i <= ext_adc_size; i++)
-	{	
-		*ext_adc = i;
-		_delay_us (50);
-		retrieved_value = *ext_adc;
-		//printf ("%i \n",retreived_value);	
-		//return (retrieved_value);
+	
+	volatile char *ext_adc = (char *) 0x1400; // Start address for the AAM
+	int retrieved_value = 0;
+
+	*ext_adc = 0b0100 + channel;
+	_delay_us (50);
+	
+	// remapping
+	retrieved_value = *ext_adc;
+	int val;
+	val = ((((float)(retrieved_value)-128)/127)*100);
+	val = (int) val;
+	
+	// deadzone	
+	if(-10<val & 10>val ){
+		val=0;
 	}
-	return (retrieved_value);
+	return val;
 }
 
-//}
+
+
 void ADC_init()
 {	
 	MCUCR |= (1<<SRE);
 	SFIOR |= (1<<XMM2);
 }
+

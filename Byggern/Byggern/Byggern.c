@@ -14,6 +14,8 @@
 #include "UART.h"
 #include "SRAM_test.h"
 #include "ADC_test.h"
+#include "Joystick.h"
+#include "fonts.h"
 
 void testest2(unsigned char x)
 {
@@ -28,6 +30,7 @@ int main(void)
 	
 	SRAM_init();
 	ADC_init();
+	init_OLED();
 	
 	DDRB = 0x00;	//input
 	PORTB = 0xFF;	//pull-up
@@ -40,18 +43,85 @@ int main(void)
 	
 	char name[100];
 
+	//calibrate();
 	
 	unsigned int i = 0;
 	int j = 1;
+	write_c(0xB0);
+	write_c(0x00);
+	write_c(0x10);
+	write_d(0x00);
+	write_d(0b00000000);
+	write_d(0b01111101);
+	write_d(0x00);
 	
     while(1)
     {
+		char c = 'k';
+		//char myString[] = "This is some text";	//Howto extract a letter form string
+		//char myChar = myString[6];
+		int d = (int) c - 32;
+		//write_c(0xA4);
+		//write_c(0x20);		//Adressing mode
+		//write_c(0b10);		//Page adressing mode
+		
+		//write_c(0xA0);
+		
+		if (PINB & (1<<PINB0)){
+			for (int i = 0; i<8; i++){ 
+				write_c(0xB0+i);
+				write_c(0x00);
+				write_c(0x10);
+				for (int j = 0; j<16; j++){
+					//for (int k = 1; k<8; k++){
+						//printf("%i \n", font8[k]);
+						
+						write_d(font8[d][0]);
+						write_d(font8[d][1]);
+						write_d(font8[d][2]);
+						write_d(font8[d][3]);
+						write_d(font8[d][4]);
+						write_d(font8[d][5]);
+						write_d(font8[d][6]);
+						write_d(font8[d][7]);
+						//write_d(0x00);
+						//write_d(0x00);
+						//write_d(0b00000000);
+						//write_d(0b01111101);
+						//write_d(0x00);
+					//}
+				}
+				//write_c(0xB1);
+				//for (int j = 0; j<128; j++){
+					//write_d(0x00);
+				//}
+				//write_c(0xB2);
+				//for (int j = 0; j<128; j++){
+					//write_d(0x00);
+				//}
+				//write_c(0xB3);
+				//for (int j = 0; j<128; j++){
+					//write_d(0x00);
+				//}
+
+			}
+		//_delay_ms(100);
+		
+		}
+		if (PINB & (1<<PINB1)){
+			OLED_Reset();
+			//k++;
+		}
+			
+		//write_d(1000);
 	    //scanf("%s", name);
 		//printf("%s \n \n",name);
-	
+		//printf("%i \n",ADC_read_test(2));
         //TODO:: Please write your application code 
 		//fdevopen(char a);
-		printf (" %i  %i  %i  %i %i %i %i \n", PINB & (1<<PINB0),PINB & (1<<PINB1),PINB & (1<<PINB2), ADC_read());
+
+		//printf (" %i  %i  %i  %i  %i  %i  %i \n", PINB & (1<<PINB0),PINB & (1<<PINB1),PINB & (1<<PINB2), ADC_read(0),ADC_read(1),ADC_read(2),ADC_read(3));
+		//printf (" %i  %i  %i  %i \n", ADC_read(3));
 		//printf (" %i \n", PINB);
 		//printf (ADC_read ());
 		//printf (i);

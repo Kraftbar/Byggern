@@ -6,6 +6,10 @@ ADC_test.c
 
 Byggern.c
 
+Joysick.c
+
+OLED.c
+
 SRAM_test.c
 
 UART.c
