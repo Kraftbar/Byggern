@@ -23,6 +23,7 @@ void USART_Transmit( unsigned char data )
 	UDR0 = data;
 	}
 
+<<<<<<< HEAD
 //Runars del
 //void UartTransive(unsigned char data){
 	//
@@ -37,6 +38,9 @@ void USART_Transmit( unsigned char data )
 	//;
 	///* Get and return received data from buffer */
 	//return UDR;
+=======
+
+>>>>>>> 98be1f4a3c990b0200acf7fc30a15a64098bf9eb
 	
 //}
 void UartInit(){

@@ -37,7 +37,14 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+<<<<<<< HEAD
 ../Byggern.c \
+=======
+../ADC_test.c \
+../Byggern.c \
+../Joysick.c \
+../OLED.c \
+>>>>>>> 98be1f4a3c990b0200acf7fc30a15a64098bf9eb
 ../SRAM_test.c \
 ../UART.c
 
@@ -49,22 +56,50 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+<<<<<<< HEAD
 Byggern.o \
+=======
+ADC_test.o \
+Byggern.o \
+Joysick.o \
+OLED.o \
+>>>>>>> 98be1f4a3c990b0200acf7fc30a15a64098bf9eb
 SRAM_test.o \
 UART.o
 
 OBJS_AS_ARGS +=  \
+<<<<<<< HEAD
 Byggern.o \
+=======
+ADC_test.o \
+Byggern.o \
+Joysick.o \
+OLED.o \
+>>>>>>> 98be1f4a3c990b0200acf7fc30a15a64098bf9eb
 SRAM_test.o \
 UART.o
 
 C_DEPS +=  \
+<<<<<<< HEAD
 Byggern.d \
+=======
+ADC_test.d \
+Byggern.d \
+Joysick.d \
+OLED.d \
+>>>>>>> 98be1f4a3c990b0200acf7fc30a15a64098bf9eb
 SRAM_test.d \
 UART.d
 
 C_DEPS_AS_ARGS +=  \
+<<<<<<< HEAD
 Byggern.d \
+=======
+ADC_test.d \
+Byggern.d \
+Joysick.d \
+OLED.d \
+>>>>>>> 98be1f4a3c990b0200acf7fc30a15a64098bf9eb
 SRAM_test.d \
 UART.d
 
@@ -89,6 +124,15 @@ LINKER_SCRIPT_DEP+=
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+>>>>>>> 98be1f4a3c990b0200acf7fc30a15a64098bf9eb
 ./%.o: .././%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1
@@ -121,7 +165,11 @@ all: $(OUTPUT_FILE_PATH) $(ADDITIONAL_DEPENDENCIES)
 $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER_SCRIPT_DEP)
 	@echo Building target: $@
 	@echo Invoking: AVR/GNU Linker : 4.8.1
+<<<<<<< HEAD
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="Byggern.map" -Wl,--start-group  -Wl,--end-group -Wl,-L"C:\Users\gautevn\Byggern\Byggern" -Wl,-L"C:\Users\gautevn\Byggern\Byggern\Byggern"  -Wl,--gc-sections -mmcu=atmega162  
+=======
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="Byggern.map" -Wl,--start-group  -Wl,--end-group -Wl,-L"C:\Users\gautevn\Byggern\Byggern" -Wl,-L"C:\Users\gautevn\Byggern\Byggern\Byggern" -Wl,-L"C:\Users\runarao\Downloads\Byggern-master\Byggern-master\Byggern\Byggern"  -Wl,--gc-sections -mmcu=atmega162  
+>>>>>>> 98be1f4a3c990b0200acf7fc30a15a64098bf9eb
 	@echo Finished building target: $@
 	"C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "Byggern.elf" "Byggern.hex"
 	"C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "Byggern.elf" "Byggern.eep" || exit 0
