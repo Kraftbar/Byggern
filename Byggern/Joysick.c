@@ -37,3 +37,37 @@ void calibrate(){
 	int calibrated [] = {x_akse_min,x_akse_max,y_akse_min,y_akse_max};
 	printf ("Kalibrerte verdier: \n xMin: %i xMaks: %i yMin: %i yMaks: %i \n xAVG: %i yAVG: %i \n", calibrated[0],calibrated[1],calibrated[2],calibrated[3], x_center, y_center);
 }
+
+
+char read_y()
+{
+return ADC_read(0);
+}
+
+char read_x()
+{
+return ADC_read(1);
+}
+
+char read_knappJoy()
+{
+	return !(PINB & (1<<PINB2));
+}
+
+// Omgjør verdiene til bool 
+char read_knappLeft()
+{
+	if(PINB & (1<<PINB1)){
+		return 1;
+	}
+	return 0;
+}
+
+
+char read_knappRight()
+{
+	if(PINB & (1<<PINB0)){
+		return 1;
+	}
+	return 0;		
+}
