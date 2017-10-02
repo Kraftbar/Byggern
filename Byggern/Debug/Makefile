@@ -42,6 +42,7 @@ C_SRCS +=  \
 ../Byggern.c \
 ../Joysick.c \
 ../OLED.c \
+../SPI.c \
 ../SRAM_test.c \
 ../UART.c
 
@@ -58,6 +59,7 @@ Buzz.o \
 Byggern.o \
 Joysick.o \
 OLED.o \
+SPI.o \
 SRAM_test.o \
 UART.o
 
@@ -67,6 +69,7 @@ Buzz.o \
 Byggern.o \
 Joysick.o \
 OLED.o \
+SPI.o \
 SRAM_test.o \
 UART.o
 
@@ -76,6 +79,7 @@ Buzz.d \
 Byggern.d \
 Joysick.d \
 OLED.d \
+SPI.d \
 SRAM_test.d \
 UART.d
 
@@ -85,6 +89,7 @@ Buzz.d \
 Byggern.d \
 Joysick.d \
 OLED.d \
+SPI.d \
 SRAM_test.d \
 UART.d
 
@@ -102,6 +107,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

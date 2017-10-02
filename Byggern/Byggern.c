@@ -17,6 +17,7 @@
 #include "Joystick.h"
 //#include "fonts.h"
 #include "Buzz.h"
+#include "SPI.h"
 
 void testest2(unsigned char x)
 {
@@ -35,6 +36,7 @@ int main(void)
 	SRAM_init();
 	ADC_init();
 	init_OLED();
+	SPI_MasterInit();
 	
 	DDRB = 0x00;	//input
 	PORTB = 0xFF;	//pull-up
@@ -73,7 +75,7 @@ const unsigned char* streng3 = "Runar er en test";
 		}
 		
 		//OLED_animation();
-		//OLED_NameScreen();
+		OLED_NameScreen();
 		
 				
 		

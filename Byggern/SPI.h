@@ -1,4 +1,9 @@
+#ifndef SPI_h_
+#define SPI_h_
+
+
+
 void SPI_MasterInit(void);
-void SPI_MasterTransmit(char cData);
+unsigned char SPI_tranciever(unsigned char data)
 
 #endif

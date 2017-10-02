@@ -12,6 +12,8 @@ Joysick.c
 
 OLED.c
 
+SPI.c
+
 SRAM_test.c
 
 UART.c

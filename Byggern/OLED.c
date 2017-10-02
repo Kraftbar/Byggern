@@ -6,6 +6,7 @@
 
 volatile char *write_c = (char *) 0x1000;
 volatile char *write_d = (char *) 0x1200; 
+char Name[3];
 
 void init_OLED()
 {
@@ -127,16 +128,18 @@ void OLED_goto(char line, char col)		// Input in page addressing mode, line 0-7
 
 void OLED_menu()
 {
-	printf("HEI");
 	OLED_Reset();
 	OLED_Home();
-	OLED_print("SuperPong!", 8);
+	OLED_goto(0, 105);
+	OLED_print(Name, 8);
+	OLED_goto(0,0);
+	OLED_print("PokePong!", 8);
 	OLED_goto(2, 10);
 	OLED_print("Ping-Pong:", 5);
 	OLED_goto(4, 10);
 	OLED_print("Highscore:", 5);
 	OLED_goto(6, 10);
-	OLED_print("Random shit :-D:", 5);
+	OLED_print("Random knapp", 5);
 	OLED_goto(2, 0);
 	OLED_print_char('~'+1, 5);
 	
@@ -173,35 +176,39 @@ void OLED_menu()
 			OLED_goto(p, 0);
 			OLED_print_char('~'+1, 5);
 			_delay_ms(300);// delay etter vi har trykket ikke når vi skal trykke
+		
+		
 		}
 		
+		if (p==6 & (read_knappJoy() == 1))
+		{
+			OLED_animation();
+			OLED_menu();
+		}
 		
-/*	Ta
-		switch(true) {
+		else if(0)
+		{
+			switch(p) 
+			{
 
-			case constant-expression  :
-			statement(s);
-			break; / * optional * /
-	
-			case constant-expression  :
-			statement(s);
-			break; / * optional * /
-	
-			/ * you can have any number of case statements * /
-			default : / * Optional * /
-			statement(s);
+				case 2:
+				printf("caseting");
+				break;
+				
+				case 4  :
+				printf("caseting");
+				break;
+				
+				default :
+				printf("caseting");
+			}
 		}
-*/
+
 	}
 }
 
 void OLED_highscore()
 {
-fsdaf
-
-
-
-dasfsdf	
 }
 
 char OLED_NameScreen()
@@ -213,7 +220,7 @@ char OLED_NameScreen()
 		OLED_goto(4, 0);
 		OLED_print("Name:", 8);
 		int minne = 0;
-		char Name[3];
+		//char Name[3];
 		OLED_goto(4, 40);
 		int p = 40;
 		while (minne <=2)

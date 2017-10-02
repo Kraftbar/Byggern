@@ -51,13 +51,16 @@ return ADC_read(1);
 
 char read_knappJoy()
 {
-	return !(PINB & (1<<PINB2));
+	if(1>(PINB & (1<<PINB2))){
+		return 1;
+	}
+	return 0;
 }
 
 // Omgjør verdiene til bool 
 char read_knappLeft()
 {
-	if(PINB & (1<<PINB1)){
+	if(1<PINB & (1<<PINB1)){
 		return 1;
 	}
 	return 0;
