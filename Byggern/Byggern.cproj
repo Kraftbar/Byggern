@@ -121,6 +121,12 @@
     <Compile Include="ADC_test.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Buzz.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Buzz.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Byggern.c">
       <SubType>compile</SubType>
     </Compile>

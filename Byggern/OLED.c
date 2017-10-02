@@ -123,6 +123,30 @@ void OLED_goto(char line, char col)		// Input in page addressing mode, line 0-7
 }
 
 
+void OLED_animation(){
+	OLED_Home();
+	*write_c = 0x20;
+	*write_c = 0b0001;
+	for(int k=0;k<10;k++){
+	for(int j=0; j<7; j++){
+		_delay_ms(100);
+	for (int i = 0 ; i<8*128 ; i++)
+	{
+		char a = pgm_read_byte(&Hallo[j][i]); // better than write_d(font8[c-' '][i]);
+		
+		// Inverting the bytes
+		a = ((a>>1) & 0x55) | ((a<<1) & 0xaa);
+		a = ((a>>2) & 0x33) | ((a<<2) & 0xcc);
+		a = ((a>>4) & 0x0f) | ((a<<4) & 0xf0);
+		// Inverting the bytes
+		*write_d = a;
+	}
+	}
+	}
+	*write_c = 0x20;
+	*write_c = 0b0010;
+	return 0;
+}
 
 void OLED_picture()
 {
@@ -151,13 +175,13 @@ void OLED_menu()
 	printf("HEI");
 	OLED_Reset();
 	OLED_Home();
-	OLED_print("SuperPong!", 5);
+	OLED_print("SuperPong!", 8);
 	OLED_goto(2, 10);
 	OLED_print("Ping-Pong:", 5);
 	OLED_goto(4, 10);
 	OLED_print("Highscore:", 5);
 	OLED_goto(6, 10);
-	OLED_print("Random shit :-D:", 8);
+	OLED_print("Random shit :-D:", 5);
 	int minne = 0;
 	char Name[3];
 	OLED_goto(4, 40);

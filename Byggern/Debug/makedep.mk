@@ -4,6 +4,8 @@
 
 ADC_test.c
 
+Buzz.c
+
 Byggern.c
 
 Joysick.c

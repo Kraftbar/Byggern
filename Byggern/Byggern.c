@@ -16,6 +16,7 @@
 #include "ADC_test.h"
 #include "Joystick.h"
 //#include "fonts.h"
+#include "Buzz.h"
 
 void testest2(unsigned char x)
 {
@@ -27,6 +28,8 @@ unsigned char TestChar = 'm';
 
 int main(void)
 {
+	DDRD  = 0xFF;
+	
 	UartInit();
 	
 	SRAM_init();
@@ -55,6 +58,7 @@ const unsigned char* streng3 = "Runar er en test";
 		
 		if (PINB & (1<<PINB0))
 		{	
+			buzz(C4, 800);
 			//OLED_Home();
 			//OLED_goto(3,36);
 			//OLED_print(streng,4);
@@ -68,13 +72,15 @@ const unsigned char* streng3 = "Runar er en test";
 			OLED_Reset();
 		}
 		
-		OLED_NameScreen();
+		//OLED_NameScreen();
 		
-		while(!read_knappJoy())
-		{
-		OLED_picture();
-		}
-		OLED_menu();
+				
+		
+		//while(!read_knappJoy())
+		//{
+		//OLED_picture();
+		//}
+		//OLED_menu();
 	}
 }
 	
