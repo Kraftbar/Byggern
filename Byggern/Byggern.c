@@ -24,7 +24,6 @@ void testest2(unsigned char x)
 	USART_Transmit(x);
 }
 
-unsigned char TestChar = 'm';
 
 
 int main(void)

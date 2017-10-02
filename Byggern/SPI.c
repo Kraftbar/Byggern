@@ -1,3 +1,7 @@
+#include <avr/io.h>
+#include <avr/interrupt.h>
+
+
 void SPI_MasterInit(void)
 {
 	/* Set MOSI, SS and SCK output, all others input */
@@ -19,4 +23,10 @@ unsigned char SPI_tranciever(unsigned char data)
 	while (!(SPSR & (1<<SPIF)));
 	//Return received data
 	return(SPDR);
+}
+
+//Interrupt from CAN_Bus
+ISR(INT0_vect)
+{	
+	
 }

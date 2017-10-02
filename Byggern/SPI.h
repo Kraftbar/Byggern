@@ -4,6 +4,7 @@
 
 
 void SPI_MasterInit(void);
-unsigned char SPI_tranciever(unsigned char data)
+unsigned char SPI_tranciever(unsigned char data);
+ISR(INT0_vect);
 
 #endif
