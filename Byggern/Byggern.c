@@ -72,15 +72,16 @@ const unsigned char* streng3 = "Runar er en test";
 			OLED_Reset();
 		}
 		
-		//OLED_NameScreen();
+		OLED_animation();
+		OLED_NameScreen();
 		
 				
 		
-		//while(!read_knappJoy())
-		//{
-		//OLED_picture();
-		//}
-		//OLED_menu();
+		while(!read_knappJoy())
+		{
+		OLED_picture();
+		}
+		OLED_menu();
 	}
 }
 	
