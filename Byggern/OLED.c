@@ -158,7 +158,7 @@ void OLED_menu()
 			// skriver pil
 			OLED_goto(p, 0);
 			OLED_print_char('~'+1, 5);
-			_delay_ms(300);
+			_delay_ms(300); // delay etter vi har trykket ikke når vi skal trykke
 			
 		}
 		if (read_y() < -50)
@@ -172,15 +172,36 @@ void OLED_menu()
 			}
 			OLED_goto(p, 0);
 			OLED_print_char('~'+1, 5);
-			_delay_ms(300);
+			_delay_ms(300);// delay etter vi har trykket ikke når vi skal trykke
 		}
-	// går ned om du trykket og printer
+		
+		
+/*	Ta
+		switch(true) {
+
+			case constant-expression  :
+			statement(s);
+			break; / * optional * /
+	
+			case constant-expression  :
+			statement(s);
+			break; / * optional * /
+	
+			/ * you can have any number of case statements * /
+			default : / * Optional * /
+			statement(s);
+		}
+*/
 	}
 }
 
 void OLED_highscore()
 {
-	
+fsdaf
+
+
+
+dasfsdf	
 }
 
 char OLED_NameScreen()
