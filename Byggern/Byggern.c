@@ -72,8 +72,8 @@ const unsigned char* streng3 = "Runar er en test";
 			OLED_Reset();
 		}
 		
-		OLED_animation();
-		OLED_NameScreen();
+		//OLED_animation();
+		//OLED_NameScreen();
 		
 				
 		

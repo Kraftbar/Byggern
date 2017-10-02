@@ -54,7 +54,7 @@ void OLED_Home(void)
 }
 
 
-
+// denne tar en char array 
 int OLED_print(char *d, char font)
 {
 	int i = 0;
@@ -71,7 +71,7 @@ int OLED_print(char *d, char font)
 }
 
 
-// denne fungerer, printer over rows
+// denne tar et aski tall, printer over rows
 int OLED_print_char(char c, char font)
 {
 	//printf("dette er en test");
@@ -123,52 +123,7 @@ void OLED_goto(char line, char col)		// Input in page addressing mode, line 0-7
 }
 
 
-void OLED_animation(){
-	OLED_Home();
-	*write_c = 0x20;
-	*write_c = 0b0001;
-	for(int k=0;k<10;k++){
-	for(int j=0; j<7; j++){
-		_delay_ms(100);
-	for (int i = 0 ; i<8*128 ; i++)
-	{
-		char a = pgm_read_byte(&Hallo[j][i]); // better than write_d(font8[c-' '][i]);
-		
-		// Inverting the bytes
-		a = ((a>>1) & 0x55) | ((a<<1) & 0xaa);
-		a = ((a>>2) & 0x33) | ((a<<2) & 0xcc);
-		a = ((a>>4) & 0x0f) | ((a<<4) & 0xf0);
-		// Inverting the bytes
-		*write_d = a;
-	}
-	}
-	}
-	*write_c = 0x20;
-	*write_c = 0b0010;
-	return 0;
-}
 
-void OLED_picture()
-{
-	OLED_Home();
-	OLED_goto(ADC_read(0)/12,ADC_read(1)/2);
-	*write_c = 0x20;
-	*write_c = 0b0001;
-	for (int i = 0 ; i<8*128 ; i++)
-	{
-		char a = pgm_read_byte(&Pokeball[i]); // better than write_d(font8[c-' '][i]);
-		
-		// Inverting the bytes
-		a = ((a>>1) & 0x55) | ((a<<1) & 0xaa); 
-		a = ((a>>2) & 0x33) | ((a<<2) & 0xcc);
-		a = ((a>>4) & 0x0f) | ((a<<4) & 0xf0);
-		// Inverting the bytes
-		*write_d = a;
-	}
-	*write_c = 0x20;
-	*write_c = 0b0010;
-	return 0;
-}		
 
 void OLED_menu()
 {
@@ -182,45 +137,44 @@ void OLED_menu()
 	OLED_print("Highscore:", 5);
 	OLED_goto(6, 10);
 	OLED_print("Random shit :-D:", 5);
-	int minne = 0;
-	char Name[3];
-	OLED_goto(4, 40);
-	int p = 40;
-	while (read_knappLeft() != 1 & minne <=2)
+	OLED_goto(2, 0);
+	OLED_print_char('~'+1, 5);
+	
+	
+	int p = 2;
+	while (read_knappLeft() != 1)
 	{
 		
 		if (read_y() > 50)
 		{
-			OLED_goto(4, p);
-			//bokstav++;
-			//OLED_print_char(bokstav, 8);
+			// Blanker forrige
+			OLED_goto(p, 0);
+			OLED_print_char(' ', 5);
+			p=p-2;
+			if(p<2)
+			{
+				p=6;
+			}
+			// skriver pil
+			OLED_goto(p, 0);
+			OLED_print_char('~'+1, 5);
+			_delay_ms(300);
 			
-			_delay_ms(250);
 		}
 		if (read_y() < -50)
 		{
-			OLED_goto(4, p);
-			//bokstav--;
-			//OLED_print_char(bokstav, 8);
-			
-			_delay_ms(250);
+			OLED_goto(p, 0);
+			OLED_print_char(' ',5); //blank
+			p=p+2;
+			if(p>6)
+			{
+				p=2;
+			}
+			OLED_goto(p, 0);
+			OLED_print_char('~'+1, 5);
+			_delay_ms(300);
 		}
-		if (read_knappRight() == 1)
-		{
-			//Name[minne] = bokstav;
-			minne++;
-			p = p+8;
-			_delay_ms(500);
-		}
-		if (read_knappRight() == 1 & minne == 1)
-		{
-			OLED_goto(4, p);
-		}
-		if (read_knappRight() == 1 & minne == 2)
-		{
-			OLED_goto(4, p);
-
-		}
+	// går ned om du trykket og printer
 	}
 }
 
@@ -277,4 +231,51 @@ char OLED_NameScreen()
 		
 	}
 return Name;
+}
+
+void OLED_animation(){
+	OLED_Home();
+	*write_c = 0x20;
+	*write_c = 0b0001;
+	for(int k=0;k<10;k++){
+		for(int j=0; j<7; j++){
+			_delay_ms(100);
+			for (int i = 0 ; i<8*128 ; i++)
+			{
+				char a = pgm_read_byte(&Hallo[j][i]); // better than write_d(font8[c-' '][i]);
+				
+				// Inverting the bytes
+				a = ((a>>1) & 0x55) | ((a<<1) & 0xaa);
+				a = ((a>>2) & 0x33) | ((a<<2) & 0xcc);
+				a = ((a>>4) & 0x0f) | ((a<<4) & 0xf0);
+				// Inverting the bytes
+				*write_d = a;
+			}
+		}
+	}
+	*write_c = 0x20;
+	*write_c = 0b0010;
+	return 0;
+}
+
+void OLED_picture()
+{
+	OLED_Home();
+	OLED_goto(ADC_read(0)/12,ADC_read(1)/2);
+	*write_c = 0x20;
+	*write_c = 0b0001;
+	for (int i = 0 ; i<8*128 ; i++)
+	{
+		char a = pgm_read_byte(&Pokeball[i]); // better than write_d(font8[c-' '][i]);
+		
+		// Inverting the bytes
+		a = ((a>>1) & 0x55) | ((a<<1) & 0xaa);
+		a = ((a>>2) & 0x33) | ((a<<2) & 0xcc);
+		a = ((a>>4) & 0x0f) | ((a<<4) & 0xf0);
+		// Inverting the bytes
+		*write_d = a;
+	}
+	*write_c = 0x20;
+	*write_c = 0b0010;
+	return 0;
 }
