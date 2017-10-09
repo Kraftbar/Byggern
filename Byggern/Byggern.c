@@ -18,6 +18,8 @@
 //#include "fonts.h"
 #include "Buzz.h"
 #include "SPI.h"
+#include "MCP2515.h"
+#include "CAN.h"
 
 void testest2(unsigned char x)
 {
@@ -31,11 +33,12 @@ int main(void)
 	DDRD  = 0xFF;
 	
 	UartInit();
-	
 	SRAM_init();
 	ADC_init();
 	init_OLED();
 	SPI_MasterInit();
+	MCP_init();
+	CAN_init();
 	
 	DDRB = 0x00;	//input
 	PORTB = 0xFF;	//pull-up

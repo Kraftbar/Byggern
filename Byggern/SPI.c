@@ -5,12 +5,12 @@
 void SPI_MasterInit(void)
 {
 	/* Set MOSI, SS and SCK output, all others input */
-	DDRB = (1<<5)|(1<<7) | (1<<4);
+	DDRB = (1<<5)|(1<<7)|(1<<4);
 	/* Enable SPI, Master, set clock rate fck/16 */
-	SPCR = (1<<SPE)|(1<<MSTR)|(1<<SPR0) | (1<<SPIE);
+	SPCR = (1<<SPE)|(1<<MSTR)|(1<<SPR0);
 	
 	// Enable Global Interrupts
-	sei();
+	// sei(); vil heller få interup externt, ikke fra spi
 }
 
 unsigned char SPI_tranciever(unsigned char data)
@@ -21,7 +21,7 @@ unsigned char SPI_tranciever(unsigned char data)
 	SPDR = data;
 	/* Wait for transmission complete */
 	while (!(SPSR & (1<<SPIF)));
-	//Chip deselect
+	//Chip de-select
 	PORTB = (1<<4);
 	//Return received data
 	return(SPDR);

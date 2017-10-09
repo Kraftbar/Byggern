@@ -15,7 +15,7 @@ unsigned char MCP_bitmod(unsigned char register, unsigned char bit, unsigned cha
 	PORTB = (0<<4);					// Chip select
 	SPI_tranciever(MCP_BITMOD);		// send command "I want to modify bit"
 	SPI_tranciever(register);		// In what register do you want to operate
-	SPI_tranciever(bit);			// What bit do you want to change
+	SPI_tranciever(bit);			// What bit mask do you want to change
 	SPI_tranciever(bittil);			// What to you want to change to
 	PORTB =(1<<4);					// chip de-select
 	
@@ -39,8 +39,9 @@ unsigned char MCP_write(unsigned char address, unsigned char data)
 {
 	PORTB = (0<<4);					
 	SPI_tranciever(MCP_WRITE)		// Send command "I want to write"
-	SPI_tranciever(data);			// What we want to write
 	SPI_tranciever(address);		// Where we want to write to
+	SPI_tranciever(data);			// What we want to write
+	
 	PORTB = (1<<4)
 }
 
