@@ -88,19 +88,17 @@ const unsigned char* streng3 = "Runar er en test";
 		OLED_menu();
 	}
 	// CAN test oppsett
-	CAN_message testmess =
-	{
-		.id = 20;
-		.length = 8;
-		.data = [0,1,0,1,0,1,0,1];
-		
-	};
+	struct CAN_message testmess;
+	testmess.id = 1;
+	testmess.data = [0,1,0,1,0,1,0,1];		// needs a for loop for this. Fuck!
+	testmess.length = 8;
+
 	
 	CAN_send(testmess);
 	
-	if(CAN_read2(testmess).id == 20)
+	if(CAN_read2(testmess.id) == 1)
 	{
-		print(CAN_read2(testmess).data);
+		printf(CAN_read2(testmess.data));
 	}
 }
 	

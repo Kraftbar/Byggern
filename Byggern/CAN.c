@@ -7,12 +7,6 @@
 
 #include "CAN.h"
 
-struct CAN_message						// Message object
-{
-	unsigned int id;					// Message ID,
-	unsigned char length;				// length of message
-	unsigned char data[8];				// message
-	};
 
 void CAN_init()
 {
@@ -47,7 +41,7 @@ CAN_message CAN_read2(CAN_message* msg)
 	CAN_message readint =
 	{
 	.id = msg->id											
-	.lenght msg->length
+	.lenght = msg->length
 		for (unsigned char i=0; i<msg.length;i++)
 		{
 			MCP_read(msg->data[i]);							// Read all data, entire length of message
