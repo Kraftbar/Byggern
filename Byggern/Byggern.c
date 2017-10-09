@@ -87,6 +87,21 @@ const unsigned char* streng3 = "Runar er en test";
 		}
 		OLED_menu();
 	}
+	// CAN test oppsett
+	CAN_message testmess =
+	{
+		.id = 20;
+		.length = 8;
+		.data = [0,1,0,1,0,1,0,1];
+		
+	};
+	
+	CAN_send(testmess);
+	
+	if(CAN_read2(testmess).id == 20)
+	{
+		print(CAN_read2(testmess).data);
+	}
 }
 	
 
