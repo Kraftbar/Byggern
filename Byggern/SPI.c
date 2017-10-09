@@ -21,6 +21,8 @@ unsigned char SPI_tranciever(unsigned char data)
 	SPDR = data;
 	/* Wait for transmission complete */
 	while (!(SPSR & (1<<SPIF)));
+	//Chip deselect
+	PORTB = (1<<4);
 	//Return received data
 	return(SPDR);
 }
