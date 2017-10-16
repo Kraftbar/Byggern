@@ -4,7 +4,7 @@
 
 
 
-void SRAM_init() {
+void SRAM_init(void) {
 	//Enable the external memory interface/4 bits address
 	MCUCR |= (1<<SRE);
 	SFIOR |= (1<<XMM2);

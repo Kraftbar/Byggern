@@ -40,7 +40,9 @@ C_SRCS +=  \
 ../ADC_test.c \
 ../Buzz.c \
 ../Byggern.c \
+../CAN.c \
 ../Joysick.c \
+../MCP2515.c \
 ../OLED.c \
 ../SPI.c \
 ../SRAM_test.c \
@@ -57,7 +59,9 @@ OBJS +=  \
 ADC_test.o \
 Buzz.o \
 Byggern.o \
+CAN.o \
 Joysick.o \
+MCP2515.o \
 OLED.o \
 SPI.o \
 SRAM_test.o \
@@ -67,7 +71,9 @@ OBJS_AS_ARGS +=  \
 ADC_test.o \
 Buzz.o \
 Byggern.o \
+CAN.o \
 Joysick.o \
+MCP2515.o \
 OLED.o \
 SPI.o \
 SRAM_test.o \
@@ -77,7 +83,9 @@ C_DEPS +=  \
 ADC_test.d \
 Buzz.d \
 Byggern.d \
+CAN.d \
 Joysick.d \
+MCP2515.d \
 OLED.d \
 SPI.d \
 SRAM_test.d \
@@ -87,7 +95,9 @@ C_DEPS_AS_ARGS +=  \
 ADC_test.d \
 Buzz.d \
 Byggern.d \
+CAN.d \
 Joysick.d \
+MCP2515.d \
 OLED.d \
 SPI.d \
 SRAM_test.d \
@@ -107,6 +117,10 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 

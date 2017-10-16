@@ -1,7 +1,7 @@
 #ifndef UART_h_
 #define UART_h_
 
-void UartInit();
+void SRAM_init(void);
 
 int SRAM_write(unsigned int address, unsigned int data);
 

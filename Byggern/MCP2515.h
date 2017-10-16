@@ -154,6 +154,39 @@ Copyright 2003 Kimberly Otten Software Consulting
 #define MCP_WAKIF		0x40
 #define MCP_MERRF		0x80
 
+// CANCTRL bit
+#define MCP_REQOP2		0x80
+#define MCP_REQOP1		0x40
+#define MCP_REQOP0		0x20
+#define MCP_ABAT		0x10
+#define MCP_OSM			0x08
+#define MCP_CLKEN		0x04
+#define MCP_CLKPRE1		0x02
+#define MCP_CLKPRE0		0x01
+#define MCP_REQOP		0xE0
 
+// ID register
+#define MCP_TXB0SIDH	0x31
+#define MCP_TXB0SIDL	0x32
+
+// Data length register
+#define TXB0DLC			0x35
+
+// Data register
+#define TXB0D0			0x36 // ->0x3D
+
+// Receive register
+#define MCP_RXB0SIDH	0x61
+#define MCP_RXB0SIDL	0x62
+#define MCP_RXB0DLC		0x65
+#define MCP_RXB0D0		0x66 // -> 0x6D
+
+void MCP_init();
+void MCP_write(unsigned char address, unsigned int data);
+unsigned int MCP_read(unsigned char address);
+void MCP_bitmod(unsigned char reg, unsigned char bit, unsigned char bittil);
+void MCP_reset();
+void MCP_request();
+unsigned char MCP_status();
 
 #endif
