@@ -62,7 +62,7 @@ CAN_message CAN_read2()
 	{
 		msg.data[i] = MCP_read(MCP_RXB0D0+i);
 	}
-	//printf("ID: %i\n",msg.id);
+	printf("ID: %i\n",msg.id);
 	//printf("Lengde: %i\n",msg.length);
 	//for (int i =0; i<8; i++)	
 		//{

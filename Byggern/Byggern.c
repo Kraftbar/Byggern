@@ -22,10 +22,10 @@
 #include "MCP2515.h"
 #include "CAN.h"
 
-void testest2(unsigned char x)
-{
-	USART_Transmit(x);
-}
+//void testest2(unsigned char x)
+//{
+	//USART_Transmit(x);
+//}
 
 
 
@@ -37,9 +37,7 @@ int main(void)
 	SRAM_init();
 	ADC_init();
 	init_OLED();
-	
 	MCP_init();
-	
 	CAN_init();
 	
 	//DDRB = 0b00011011;				//Output, input på 0-2
@@ -100,42 +98,43 @@ int main(void)
 		//OLED_picture();
 		////}
 		//OLED_menu();
-				
-				MCP_write(0b00110110,0x58);
-				_delay_ms(2);
-				//printf("%x \n",0x55);
-				int temp = MCP_read(0b00110110);
-				printf("%x \n",temp);
-				
+					// chip de-select
+
+	//uint8_t dummy=	MCP_read(0x0E);
+	//printf("After Reset Status is: %2x\n",dummy);
+	//MCP_write(0x0f,0x40);
+	//dummy=	MCP_read(0x0E);
+	//printf("Updated Status is: %2x\n",dummy);
+	//_delay_ms(1000);
+				//
 		//
 			// CAN test oppsett
 			
-			//for(int i = 0; i < 8; i++)
-			//{
+			for(int i = 0; i < 8; i++)
+			{
 				//printf("%i", testmess.data[i]);
-				//
-			//}
+				
+			}
 			//printf("\n");
 			//printf("%i",testmess.id);
-			//
-
 			
-			//CAN_send(testmess);
-			//
-			//CAN_message h = CAN_read2();
-			//
-			//
-			//if(h.id == 0b01)
-			//{
-			//
-				//printf("h= ");
-				//for (int i =0; i<h.length; i++)
-				//{
-					//printf("%i",h.data);
-				//}
-				//printf("\n");
-			//}
-			//
+
+			CAN_send(testmess);
+			
+			CAN_message h = CAN_read2();
+			
+			
+			if(h.id == 157)
+			{
+				
+				printf("h= ");
+				for (int i =0; i<h.length; i++)
+				{
+					printf("%i",h.data);
+				}
+				printf("\n");
+			}
+			
 	}
 }
 		
