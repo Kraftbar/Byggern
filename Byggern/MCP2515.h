@@ -184,7 +184,7 @@ Copyright 2003 Kimberly Otten Software Consulting
 void MCP_init();
 void MCP_write(unsigned char address, unsigned int data);
 unsigned int MCP_read(unsigned char address);
-void MCP_bitmod(unsigned char reg, unsigned char bit, unsigned char bittil);
+void MCP_bitmod(unsigned char reg, unsigned char mask, unsigned char data);
 void MCP_reset();
 void MCP_request();
 unsigned char MCP_status();

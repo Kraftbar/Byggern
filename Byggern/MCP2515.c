@@ -1,23 +1,32 @@
 // MCP driver file: Espen 08.10.17
 #include "MCP2515.h"
 #include "SPI.h"
+#include "CAN.h"
 #include <avr/io.h>
+#include <avr/delay.h>
 void MCP_init()
 {
 	// Makes sure registers are clean and MCP in control mode
 	SPI_MasterInit();
+	CAN_init();
 	MCP_reset();
+	
 }
 
 
 
-void MCP_bitmod(unsigned char reg, unsigned char bit, unsigned char bittil)
+void MCP_bitmod(unsigned char reg, unsigned char mask, unsigned char data)
 {
 	PORTB &= ~(1<<PB4);					// Chip select
+	_delay_us(1);
 	SPI_tranciever(MCP_BITMOD);			// send command "I want to modify bit"
+	_delay_us(1);
 	SPI_tranciever(reg);				// In what register do you want to operate
-	SPI_tranciever(bit);				// What bit mask do you want to change
-	SPI_tranciever(bittil);				// What to you want to change to
+	_delay_us(1);
+	SPI_tranciever(mask);				// What bit mask do you want to change
+	_delay_us(1);
+	SPI_tranciever(data);				// What to you want to change to
+	_delay_us(1);
 	PORTB |=(1<<PB4);						// chip de-select
 	
 }
@@ -28,20 +37,27 @@ unsigned int MCP_read(unsigned char address)
 {
 	unsigned int result;
 	PORTB &= ~(1<<PB4);				// Selects can controller
+	_delay_us(1);
 	SPI_tranciever(MCP_READ);		// Send command "I want to read MCP
+	_delay_us(1);
 	SPI_tranciever(address);		// Address we want to read
+	_delay_us(1);
 	result = SPI_tranciever(0xFF);	// Save What we read in result
+	_delay_us(1);
 	PORTB |=(1<<PB4);					// De-selects can controller
 	return result;					// Return what we read
 }
 
 void MCP_write(unsigned char address, unsigned int data)
 {
-	PORTB &= ~(1<<PB4);					
+	PORTB &= ~(1<<PB4);	
+	_delay_us(1);				
 	SPI_tranciever(MCP_WRITE);		// Send command "I want to write"
+	_delay_us(1);
 	SPI_tranciever(address);		// Where we want to write to
+	_delay_us(1);
 	SPI_tranciever(data);			// What we want to write
-	
+	_delay_us(1);
 	PORTB |=(1<<PB4);
 }
 

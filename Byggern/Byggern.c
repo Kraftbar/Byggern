@@ -38,7 +38,6 @@ int main(void)
 	ADC_init();
 	init_OLED();
 	MCP_init();
-	CAN_init();
 	
 	//DDRB = 0b00011011;				//Output, input på 0-2
 	//PORTB = 0xFF;					//pull-up og høy ut
@@ -56,11 +55,11 @@ int main(void)
 	sei();
 	
 	CAN_message testmess;
-	testmess.id = 0b01;
+	testmess.id = 4;
 	testmess.length = 8;
 	for (unsigned char i=0; i<testmess.length;i++)
 	{
-		testmess.data[i] = 9;
+		testmess.data[i] = i;
 	}
 	//testmess.data[0] = 15;
 	
@@ -100,21 +99,21 @@ int main(void)
 		//OLED_menu();
 					// chip de-select
 
-	//uint8_t dummy=	MCP_read(0x0E);
+	//uint8_t dummy=	0xFF;//MCP_read(0x0E);
 	//printf("After Reset Status is: %2x\n",dummy);
-	//MCP_write(0x0f,0x40);
-	//dummy=	MCP_read(0x0E);
+	//MCP_write(0x0F,0x40);
+	//dummy=	MCP_read(0x0F);
 	//printf("Updated Status is: %2x\n",dummy);
 	//_delay_ms(1000);
 				//
 		//
 			// CAN test oppsett
 			
-			for(int i = 0; i < 8; i++)
-			{
+			//for(int i = 0; i < 8; i++)
+			//{
 				//printf("%i", testmess.data[i]);
-				
-			}
+				//
+			//}
 			//printf("\n");
 			//printf("%i",testmess.id);
 			
@@ -124,7 +123,7 @@ int main(void)
 			CAN_message h = CAN_read2();
 			
 			
-			if(h.id == 157)
+			if(h.id == 4)
 			{
 				
 				printf("h= ");
@@ -134,7 +133,7 @@ int main(void)
 				}
 				printf("\n");
 			}
-			
+			//
 	}
 }
 		
