@@ -15,7 +15,7 @@ void MCP_init()
 
 void MCP_bitmod(unsigned char reg, unsigned char mask, unsigned char data)
 {
-	PORTB &= ~(1<<PB4);					// Chip select
+	spi_chipselect(1);					// Chip select
 	_delay_us(1);
 	SPI_tranciever(MCP_BITMOD);			// send command "I want to modify bit"
 	_delay_us(1);
@@ -25,7 +25,7 @@ void MCP_bitmod(unsigned char reg, unsigned char mask, unsigned char data)
 	_delay_us(1);
 	SPI_tranciever(data);				// What to you want to change to
 	_delay_us(1);
-	PORTB |=(1<<PB4);						// chip de-select
+	spi_chipselect(0);						// chip de-select
 	
 }
 // Note that bitmod will change multiple bits unless one specifies which bit address to change. f.ex: bit = DLC3 & DLC2
@@ -34,7 +34,7 @@ void MCP_bitmod(unsigned char reg, unsigned char mask, unsigned char data)
 unsigned int MCP_read(unsigned int address)
 {
 	unsigned int result;
-	PORTB &= ~(1<<PB4);				// Selects can controller
+	spi_chipselect(1);				// Selects can controller
 	_delay_us(1);
 	SPI_tranciever(MCP_READ);		// Send command "I want to read MCP
 	_delay_us(1);
@@ -42,13 +42,13 @@ unsigned int MCP_read(unsigned int address)
 	_delay_us(1);
 	result = SPI_tranciever(0xFF);	// Save What we read in result
 	_delay_us(1);
-	PORTB |=(1<<PB4);					// De-selects can controller
+	spi_chipselect(0);					// De-selects can controller
 	return result;					// Return what we read
 }
 
 void MCP_write(unsigned int address, unsigned int data)
 {
-	PORTB &= ~(1<<PB4);	
+	spi_chipselect(1);	
 	_delay_us(1);				
 	SPI_tranciever(MCP_WRITE);		// Send command "I want to write"
 	_delay_us(1);
@@ -56,29 +56,29 @@ void MCP_write(unsigned int address, unsigned int data)
 	_delay_us(1);
 	SPI_tranciever(data);			// What we want to write
 	_delay_us(1);
-	PORTB |=(1<<PB4);
+	spi_chipselect(0);
 }
 
 void MCP_reset()
 {
-	PORTB &= ~(1<<PB4);	
+	spi_chipselect(1);	
 	SPI_tranciever(MCP_RESET);		// Send command "I want to reset MCP"
-	PORTB |=(1<<PB4);
+	spi_chipselect(0);
 }
 
 void MCP_request()
 {
-	PORTB &= ~(1<<PB4);
+	spi_chipselect(1);
 	SPI_tranciever(MCP_RTS_ALL);	// Send command "Request to send for all ports" (TX0, TX1 and TX2)
-	PORTB |=(1<<PB4);
+	spi_chipselect(0);
 }
 
 unsigned char MCP_status()
 {
-	PORTB &= ~(1<<PB4);
+	spi_chipselect(1);
 	unsigned char value  = SPI_tranciever(MCP_READ_STATUS);				// Send command "I want to read status"
 																		// Save returned value for SPI_ tranciever
-	PORTB |=(1<<PB4);	
+	spi_chipselect(0);	
 	return value;														// Return saved variabel 
 }
 

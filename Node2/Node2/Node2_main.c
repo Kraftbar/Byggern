@@ -12,23 +12,37 @@
 #include <stdio.h>
 #include <string.h>
 #include <util/delay.h>
+#include "UART.h"
 #include "SPI.h"
 #include "MCP2515.h"
 #include "CAN.h"
-#include "UART.h"
+
 
 
 
 int main(void)
 {
+	UartInit();
 	CAN_init();
 	sei();
 	CAN_message h;								//Receiver generated message
 
+	CAN_message myMessage;				//test message
 	int ident = 29;
+	myMessage.id = ident;
+	myMessage.length = 8;
+	int n = 3;
+	for (int i = 0; i < 8; i++)
+	{
+		myMessage.data[i] = n;
+		n++;
+	}
+	printf("Start på program\n");
 	
     while(1)
     {
+		printf("HEIA");
+		CAN_send(&myMessage);
 		CAN_read2(&h);
 		//h.id=h.data[0];
 		printf("h id = %d "  ,h.id  );
@@ -42,6 +56,6 @@ int main(void)
 			}
 			printf("\n");
 		}
-		CAN_send(&h);
+		//CAN_send(&h);
     }
 }

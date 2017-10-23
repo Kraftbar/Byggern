@@ -1,6 +1,7 @@
 #include <avr/io.h>
+#include <stdio.h>
 #include "UART.h"
-#define FOSC 4915200// Clock Speed
+#define FOSC 16000000// Clock Speed
 #define BAUD 9600
 #define MYUBRR FOSC/16/BAUD-1
 
@@ -26,13 +27,26 @@ void USART_Transmit( unsigned char data )
 
 	
 //}
-void UartInit(){
-	//Set Baud rate 9600
-	UBRR0H = (unsigned char)(MYUBRR>>8);	// Setter de 8 mest signifikante bitene
-	UBRR0L = (unsigned char)(MYUBRR);	// Setter de 8 minst signifikante bitene
-	// Enable receiver and transmitter
-	UCSR0B = (1<<RXEN0) | (1<<TXEN0);
-	// 8N2
-	UCSR0C = (1<<URSEL0) | (1<<USBS0) | (3<<UCSZ00);
+//void UartInit(){
+	////Set Baud rate 9600
+	//UBRR0H = (unsigned char)(MYUBRR>>8);	// Setter de 8 mest signifikante bitene
+	//UBRR0L = (unsigned char)(MYUBRR);	// Setter de 8 minst signifikante bitene
+	//// Enable receiver and transmitter
+	//UCSR1B = (1<<RXEN1) | (1<<TXEN1);
+	//// drame format 8data, 2stopbit
+	//UCSR1C = (1<<USBS1) | (1<<USBS0) | (3<<UCSZ00);
+	//fdevopen(&USART_Transmit, &USART_Receive);
+	//
+//}
+void UartInit(void){
+	UBRR0L = (uint8_t)(MYUBRR);
+
+	// USART Control and Status
+	UCSR0B  |=  (1<<RXEN0)      // receive enable
+			|   (1<<TXEN0);     // transmit enable
+
 	fdevopen(&USART_Transmit, &USART_Receive);
+
+	UCSR0C  |=  (3<<UCSZ00);    // char size to 8
+
 }

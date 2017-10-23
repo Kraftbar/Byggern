@@ -3,16 +3,18 @@
 
 void SPI_MasterInit(void)
 {
-	/* Set MOSI, SS and SCK output, all others input */
-	DDRB &= ~(1<<PB6);
-	DDRB |= (1<<PB5)|(1<<PB7)|(1<<PB4);
-	PORTB |= (1<<PB4);
-	/* Enable SPI, Master, set clock rate fck/16 */
-	SPCR |= (1<<SPE)|(1<<MSTR)|(1<<SPR0);//&~(1<<DORD);
-	
-	// Enable Global Interrupts
-	// sei(); vil heller få interup externt, ikke fra spi
+
+	DDRB    |=  (1<<DDB1)   // Slave Clock Input as output
+			|   (1<<DDB2)   // Master Output/Slave Input as output
+			|   (1<<DDB0);  // Slave Select as output
+	DDRB    &= ~(1<<DDB3);  // Master Input/Slave Output as input
+
+	//SPI Control Register
+	SPCR    |=  (1<<SPE)    // SPI Enable
+			|   (1<<SPR0)   // SCK frequency to F_OSC/16
+			|   (1<<MSTR);  // Set SPI to master mode
 }
+
 
 unsigned char SPI_tranciever(unsigned char data)
 {
@@ -34,4 +36,10 @@ void testSPI(){
 		dummy=	MCP_read(0x0F);
 		printf("Updated Status is: %2x\n",dummy);
 		_delay_ms(1000);
+}
+
+void spi_chipselect(unsigned char enable){
+	enable
+	? (PORTB &= ~(1<<PB0))
+	: (PORTB |= (1<<PB0));
 }

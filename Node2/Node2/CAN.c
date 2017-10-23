@@ -13,7 +13,7 @@ void CAN_init()
 {
 	MCP_init();
 	MCP_bitmod(MCP_CANINTE, 0x0F, 0x01);					// Sets interrupt receive-register 
-	MCP_bitmod(MCP_CANCTRL,MODE_MASK,MODE_NORMAL);		// Setting MCP to loop-back mode MODE_MASK
+	MCP_bitmod(MCP_CANCTRL,MODE_MASK,MODE_LOOPBACK);		// Setting MCP to loop-back mode MODE_MASK
 }
 
 void CAN_send(CAN_message * msg)
@@ -64,7 +64,7 @@ void CAN_Int_Reset()						// Resets CAN
 void CAN_read2(CAN_message * msg)														// Reads a CAN message
 {
 	int i = 0;
-	while (!(MCP_status() & 0x01))														// Wait if status not clear
+	while (!(MCP_status() & 0x01) & (i<100))														// Wait if status not clear
 	{
 		i++;
 		printf("Venter på melding\n");

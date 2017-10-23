@@ -6,4 +6,5 @@
 void SPI_MasterInit(void);
 unsigned char SPI_tranciever(unsigned char data);
 void testSPI();
+void spi_chipselect(unsigned char enable);
 #endif
