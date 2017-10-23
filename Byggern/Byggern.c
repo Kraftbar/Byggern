@@ -22,12 +22,6 @@
 #include "MCP2515.h"
 #include "CAN.h"
 
-//void testest2(unsigned char x)
-//{
-	//USART_Transmit(x);
-//}
-
-
 
 int main(void)
 {
@@ -37,103 +31,91 @@ int main(void)
 	SRAM_init();
 	ADC_init();
 	init_OLED();
-	MCP_init();
+	CAN_init();
 	
-	//DDRB = 0b00011011;				//Output, input på 0-2
-	//PORTB = 0xFF;					//pull-up og høy ut
+	// kalibrering
+	/*DDRB = 0b00011011;				//Output, input på 0-2
+	PORTB = 0xFF;					//pull-up og høy ut
 	
-	//char name[100];
+	char name[100];
 
-	//calibrate();
-	//OLED_Reset();
-	//const unsigned char* streng = "dette er en test";
-//const unsigned char* streng = "Espen er en GAUDER";
-//const unsigned char* streng2 = "Gaute er en test";
-//const unsigned char* streng3 = "Runar er en test";
+	calibrate();
+	OLED_Reset();*/
 	
 	// Enable Global Interrupts
 	sei();
 	
-	CAN_message testmess;
-	testmess.id = 4;
-	testmess.length = 8;
-	for (unsigned char i=0; i<testmess.length;i++)
-	{
-		testmess.data[i] = i;
-	}
+
 	//testmess.data[0] = 15;
 	
+	// CAN test
+
+			
+			CAN_message myMessage;				//test message
+			int ident = 29;
+			myMessage.id = ident;
+			myMessage.length = 8;
+			int n = 3;
+			for (int i = 0; i < 8; i++) 
+			{
+				myMessage.data[i] = n;
+				n++;
+			}
+	printf("Start på program\n");
+
+	CAN_message h;								//Receiver generated message
     while(1)
     {
 		
-		//printf("test");
+		/*printf("test");
 		
-		//OLED_Reset();
+		OLED_Reset();
 		
 		
-		//if (PINB & (1<<PINB0))
-		//{	
-			//buzz(C4, 800);
-			////OLED_Home();
-			////OLED_goto(3,36);
-			////OLED_print(streng,4);
-			////OLED_gotoline(1);
-			////OLED_print(streng2,5);
-			////OLED_gotoline(2);
-			////OLED_print(streng3,8);
-		//}
-		//if (PINB & (1<<PINB1))
-		//{
-			//OLED_Reset();
-		//}
+		if (PINB & (1<<PINB0))
+		{	
+			buzz(C4, 800);
+			//OLED_Home();
+			//OLED_goto(3,36);
+			//OLED_print(streng,4);
+			//OLED_gotoline(1);
+			//OLED_print(streng2,5);
+			//OLED_gotoline(2);
+			//OLED_print(streng3,8);
+		}
+		if (PINB & (1<<PINB1))
+		{
+			OLED_Reset();
+		}
 		
-		//OLED_animation();
-		//OLED_NameScreen();
-		//
-				//
-		//
-		//while(!read_knappJoy())
-		//{
-		//OLED_picture();
-		////}
-		//OLED_menu();
-					// chip de-select
-
-	//uint8_t dummy=	0xFF;//MCP_read(0x0E);
-	//printf("After Reset Status is: %2x\n",dummy);
-	//MCP_write(0x0F,0x40);
-	//dummy=	MCP_read(0x0F);
-	//printf("Updated Status is: %2x\n",dummy);
-	//_delay_ms(1000);
-				//
-		//
-			// CAN test oppsett
-			
-			//for(int i = 0; i < 8; i++)
-			//{
-				//printf("%i", testmess.data[i]);
-				//
-			//}
-			//printf("\n");
-			//printf("%i",testmess.id);
-			
-
-			CAN_send(testmess);
-			
-			CAN_message h = CAN_read2();
-			
-			
-			if(h.id == 4)
-			{
+		OLED_animation();
+		OLED_NameScreen();
+		
 				
+		
+		while(!read_knappJoy())
+		{
+		OLED_picture();
+		//}
+		OLED_menu();
+					 chip de-select*/
+
+
+
+			CAN_send(&myMessage);
+			CAN_read2(&h);
+				//h.id=h.data[0];
+				printf("h id = %d "  ,h.id  );
+				printf("h length = %d "  , h.length  );
 				printf("h= ");
-				for (int i =0; i<h.length; i++)
+			if (h.id == ident)
+			{
+				for (int i =0; i<8; i++)
 				{
-					printf("%i",h.data);
+					printf("%d, ",h.data[i]);
 				}
 				printf("\n");
 			}
-			//
 	}
 }
 		
