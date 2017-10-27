@@ -28,16 +28,16 @@ int main(void)
 	
 	CAN_message h;								//Receiver generated message
 
-	CAN_message myMessage;				//test message
-	int ident = 52;
-	myMessage.id = ident;
-	myMessage.length = 8;
-	int n = 3;
-	for (int i = 0; i < 8; i++)
-	{
-		myMessage.data[i] = n;
-		n++;
-	}
+	//CAN_message myMessage;				//test message
+	//int ident = 52;
+	//myMessage.id = ident;
+	//myMessage.length = 8;
+	//int n = 3;
+	//for (int i = 0; i < 8; i++)
+	//{
+		//myMessage.data[i] = n;
+		//n++;
+	//}
 	printf("Start på program\n");
 	
     while(1)

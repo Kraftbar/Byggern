@@ -68,11 +68,11 @@ void CAN_Int_Reset()						// Resets CAN
 void CAN_read2(CAN_message * msg)														// Reads a CAN message
 {
 	int i = 0;
-	while (!(MCP_status() & 0x01))														// Wait if status not clear
-	{
-		printf("Venter på melding\n");
-		_delay_ms(10);
-	}
+	//while (!(MCP_status() & 0x01))														// Wait if status not clear
+	////while (!(MCP_read(MCP_RXB0CTRL) & 0x01)){}
+	//{
+		//printf("Venter på melding\n");
+	//}
 	if (1) // rxflag == 1
 	{
 		msg->id = (MCP_read(MCP_RXB0SIDH) << 3) | (MCP_read(MCP_RXB0SIDL) >> 5);		// Sets MSG ID = to what it reads on the registers 			
