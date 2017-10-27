@@ -3,7 +3,7 @@
 #include "setup.h"
 #include "CAN.h"
 #include "MCP2515.h"
-#include <avr/delay.h>
+#include <util/delay.h>
 
 
 unsigned char rxflag = 0;									// Interrupt flag variable

@@ -2,21 +2,22 @@
 #include <avr/io.h>
 #include <stdio.h>
 #include "UART.h"
-//#define FOSC 16000000// Clock Speed
-//#define BAUD 9600
-//#define MYUBRR FOSC/16/BAUD-1
+
+#define BAUD 9600
+#define MYUBRR FOSC/16/BAUD-1
 
 void UartInit(void){
 	UBRR0L = (uint8_t)(MYUBRR);
+	UBRR0H = (uint8_t)((MYUBRR) >> 8);
 
 	// USART Control and Status
 	UCSR0B  |=  (1<<RXEN0)      // receive enable
-	|   (1<<TXEN0);     // transmit enable
+			|   (1<<TXEN0);     // transmit enable
 
+	UCSR0C  |=	(1 << USBS1)	// 2 stop bites
+			|	(3<<UCSZ00);    // char size to 8
+	
 	fdevopen(&USART_Transmit, &USART_Receive);
-
-	UCSR0C  |=  (3<<UCSZ00);    // char size to 8
-
 }
 
 unsigned char USART_Receive(void)

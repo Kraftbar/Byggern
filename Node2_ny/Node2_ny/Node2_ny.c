@@ -21,15 +21,15 @@
 
 int main(void)
 {
-UartInit();
-CAN_init();
+	UartInit();
+	CAN_init();
 
 	sei();
 	
-	/*CAN_message h;								//Receiver generated message
+	CAN_message h;								//Receiver generated message
 
 	CAN_message myMessage;				//test message
-	int ident = 29;
+	int ident = 52;
 	myMessage.id = ident;
 	myMessage.length = 8;
 	int n = 3;
@@ -42,21 +42,26 @@ CAN_init();
 	
     while(1)
     {
-		printf("HEIA");
-		CAN_send(&myMessage);
+		_delay_us(10);
+		//uint8_t status = MCP_status();
+		//printf("STATUS: 0x%02X\n",status);
+		//printf("HEIA \n");
+		//CAN_send(&myMessage);
+		//_delay_ms(10);
 		CAN_read2(&h);
+		//MCP_read(MCP_CANCTRL);
 		//h.id=h.data[0];
-		printf("h id = %d "  ,h.id  );
-		printf("h length = %d "  , h.length  );
-		printf("h= ");
-		if (h.id == ident)
-		{
-			for (int i =0; i<8; i++)
-			{
-				printf("%d, ",h.data[i]);
-			}
-			printf("\n");
-		}
+		//printf("h id = %d "  ,h.id  );
+		//printf("h length = %d "  , h.length  );
+		//printf("h= ");
+		//if (h.id == ident)
+		//{
+			//for (int i =0; i<8; i++)
+			//{
+				//printf("%d, ",h.data[i]);
+			//}
+			//printf("\n");
+		//}
 		//CAN_send(&h);
-    }*/
+    }
 }

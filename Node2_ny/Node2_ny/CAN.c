@@ -3,7 +3,7 @@
 #include "setup.h"
 #include "CAN.h"
 #include "MCP2515.h"
-#include <avr/delay.h>
+#include <util/delay.h>
 
 
 unsigned char rxflag = 0;									// Interrupt flag variable
@@ -12,8 +12,12 @@ unsigned char rxflag = 0;									// Interrupt flag variable
 void CAN_init()
 {
 	MCP_init();
+	MCP_bitmod(MCP_RXB0CTRL, 0xF0, 0x60);					// Receive Buffer Masks OFF, 0b01100000
 	MCP_bitmod(MCP_CANINTE, 0x0F, 0x01);					// Sets interrupt receive-register 
 	MCP_bitmod(MCP_CANCTRL,MODE_MASK,MODE_NORMAL);		// Setting MCP to loop-back mode MODE_MASK
+	_delay_us(10);
+	uint8_t status = MCP_status();
+	printf("STATUS: %i",status);
 }
 
 void CAN_send(CAN_message * msg)
@@ -24,7 +28,7 @@ void CAN_send(CAN_message * msg)
 	{
 		MCP_write(MCP_TXB0SIDH, msg->id >> 3);				// Write id to id handlig regiseter (standard identifier High)
 		MCP_write(MCP_TXB0SIDL, msg->id << 5);				// Write id to Id handling register (3-3, standard identifier Low)
-		//printf("%i \n",msg->id>>3);
+		printf("ID:  %i \n",msg->id);
 		MCP_write(TXB0DLC, (msg->length));					// Write length to length handling register (3-7)
 		for(unsigned char i=0; i<msg->length;i++)
 		{
@@ -66,7 +70,6 @@ void CAN_read2(CAN_message * msg)														// Reads a CAN message
 	int i = 0;
 	while (!(MCP_status() & 0x01))														// Wait if status not clear
 	{
-		i++;
 		printf("Venter på melding\n");
 		_delay_ms(10);
 	}
@@ -82,7 +85,7 @@ void CAN_read2(CAN_message * msg)														// Reads a CAN message
 		}
 												
 		//rxflag = 0;																	// Clear intrupt flag. For later
-		//MCP_bitmod(MCP_CANINTF, 0xFF, MCP_RX0IF);
+		MCP_bitmod(MCP_CANINTF, 0xFF, MCP_RX0IF);
 	}
 	else
 	{
@@ -92,11 +95,11 @@ void CAN_read2(CAN_message * msg)														// Reads a CAN message
 }
 
 
-ISR(INT0_vect)
-{
-	//_delay_us(10);
-	CAN_Int_Reset(); //vect
-	}
+//ISR(INT0_vect)
+//{
+	////_delay_us(10);
+	//CAN_Int_Reset(); //vect
+	//}
 	
 	//void Can_loopback_test(&myMessage)							// Saved test function for loopback mode CAN msg sending
 	//{

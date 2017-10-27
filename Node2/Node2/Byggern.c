@@ -103,19 +103,19 @@ int main(void)
 
 
 			CAN_send(&myMessage);
-			//CAN_read2(&h);
-				////h.id=h.data[0];
-				//printf("h id = %d "  ,h.id  );
-				//printf("h length = %d "  , h.length  );
-				//printf("h= ");
-			//if (h.id == ident)
-			//{
-				//for (int i =0; i<8; i++)
-				//{
-					//printf("%d, ",h.data[i]);
-				//}
-				//printf("\n");
-			//}
+			CAN_read2(&h);
+				//h.id=h.data[0];
+				printf("h id = %d "  ,h.id  );
+				printf("h length = %d "  , h.length  );
+				printf("h= ");
+			if (h.id == ident)
+			{
+				for (int i =0; i<8; i++)
+				{
+					printf("%d, ",h.data[i]);
+				}
+				printf("\n");
+			}
 	}
 }
 		
