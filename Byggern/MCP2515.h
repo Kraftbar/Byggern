@@ -187,6 +187,6 @@ unsigned int MCP_read(unsigned int address);
 void MCP_bitmod(unsigned char reg, unsigned char mask, unsigned char data);
 void MCP_reset();
 void MCP_request();
-unsigned char MCP_status();
+unsigned int MCP_status();
 
 #endif

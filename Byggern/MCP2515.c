@@ -73,11 +73,11 @@ void MCP_request()
 	PORTB |=(1<<PB4);
 }
 
-unsigned char MCP_status()
+unsigned int MCP_status()
 {
 	PORTB &= ~(1<<PB4);
-	unsigned char value  = SPI_tranciever(MCP_READ_STATUS);				// Send command "I want to read status"
-																		// Save returned value for SPI_ tranciever
+	SPI_tranciever(MCP_READ_STATUS);									// Send command "I want to read status"
+	unsigned char value  = 	SPI_tranciever(0xFF);						// Save returned value for SPI_ tranciever
 	PORTB |=(1<<PB4);	
 	return value;														// Return saved variabel 
 }

@@ -52,10 +52,10 @@ int main(void)
 
 			
 			CAN_message myMessage;				//test message
-			int ident = 29;
+			int ident = 55;
 			myMessage.id = ident;
 			myMessage.length = 8;
-			int n = 3;
+			int n = 5;
 			for (int i = 0; i < 8; i++) 
 			{
 				myMessage.data[i] = n;
@@ -63,7 +63,7 @@ int main(void)
 			}
 	printf("Start på program\n");
 
-	CAN_message h;								//Receiver generated message
+	//CAN_message h;								//Receiver generated message
     while(1)
     {
 		
@@ -103,6 +103,11 @@ int main(void)
 
 
 			CAN_send(&myMessage);
+			_delay_ms(100);
+			//uint8_t status = MCP_read(MCP_CANCTRL);
+			//printf("STATUS: 0x%02X\n",status);
+			//uint8_t status2 = MCP_read(MCP_EFLG);
+			//printf("STATUS2: 0x%02X\n",status2);
 			//CAN_read2(&h);
 				////h.id=h.data[0];
 				//printf("h id = %d "  ,h.id  );
